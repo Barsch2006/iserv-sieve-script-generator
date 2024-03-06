@@ -1,0 +1,13 @@
+.icon-link,
+.icon-link:visited,
+.icon-link:hover,
+.icon-link:active {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
