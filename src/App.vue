@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>ToDo</h1>
+    <VApp>
+        <VMain> </VMain>
+    </VApp>
 </template>
 
 <style scoped>
