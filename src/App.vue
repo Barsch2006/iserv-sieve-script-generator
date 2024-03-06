@@ -1,9 +1,5 @@
-<script lang="tּs">
-export default {
-
-};
-</script>
+<script lang="tּs" setup></script>
 
 <template>
-  ToDo
+    <h1>ToDo</h1>
 </template>
