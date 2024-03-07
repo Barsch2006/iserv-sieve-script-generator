@@ -1,19 +1,30 @@
 .v-main {
-    min-height: calc(100svh - 50px);
+    min-height: calc(100svh - 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.v-window-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    width: 100svw;
+    height: calc(100svh - 48px);
+}
+
+.v-footer {
+    height: 48px !important;
 }
 
 .v-card {
-    width: min(80%, 450px);
+    width: min(80%, 500px);
 }
 
 @media screen and (max-width: 300px) {
     #version_info {
         display: none;
-    }   
+    }
 }
-
