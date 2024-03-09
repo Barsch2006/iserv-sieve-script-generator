@@ -2,10 +2,11 @@
 import StartVCard from './components/StartVCard.vue';
 import PrefsVCard from './components/PrefsVCard.vue';
 import FilterVCard from './components/FilterVCard.vue';
+import HelpPage from './components/HelpPage.vue';
 import { default as generate, IGenerateOptions } from './generate';
 
 export default {
-    components: { StartVCard, PrefsVCard, FilterVCard },
+    components: { StartVCard, PrefsVCard, FilterVCard, HelpPage },
     data() {
         return {
             accepted_tos: false,
@@ -48,6 +49,11 @@ export default {
                     value: 'finish',
                     icon: 'mdi-play-circle-outline',
                     name: 'Generate',
+                },
+                {
+                    value: 'help',
+                    icon: 'mdi-help-circle-outline',
+                    name: 'Help',
                 },
             ],
             mobile: false,
@@ -189,6 +195,10 @@ export default {
                         </VCardText>
                     </VCard>
                 </VWindowItem>
+
+                <VWindowItem value="help">
+                    <HelpPage @go-to-start="tab = 'start'" />
+                </VWindowItem>
             </VWindow>
         </VMain>
 
@@ -202,7 +212,11 @@ export default {
                 <VIcon size="24px" icon="mdi-link-variant" />
                 IServ
             </a>
-            <a target="__blank" class="subtitle icon-link" href="https://datatracker.ietf.org/doc/html/rfc3028#section-1">
+            <a
+                target="__blank"
+                class="subtitle icon-link"
+                href="https://datatracker.ietf.org/doc/html/rfc3028#section-1"
+            >
                 <VIcon size="24px" icon="mdi-book-open-blank-variant" />
                 Docs
             </a>
