@@ -1,4 +1,9 @@
-export interface IGenerateOptions {}
+export interface IPreferences {
+}
+
+export interface IGenerateOptions {
+    prefs: IPreferences;
+}
 
 export default async function generate(_opt: IGenerateOptions): Promise<{
     success: boolean;

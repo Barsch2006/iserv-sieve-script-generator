@@ -1,10 +1,19 @@
 <script lang="ts">
+import { IPreferences } from '../generate';
+
 export default {
     emits: ['next-page'],
     methods: {
         nextPage() {
             this.$emit('next-page');
         },
+    },
+    data(): {
+        prefs: IPreferences;
+    } {
+        return {
+            prefs: {},
+        };
     },
 };
 </script>

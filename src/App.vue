@@ -158,7 +158,7 @@ export default {
             </VWindow>
         </VMain>
 
-        <VFooter height="48px">
+        <VFooter height="48px" color="transparent">
             <a class="icon-link row" href="https://github.com/Barsch2006/iserv-sieve-script-generator">
                 <VIcon icon="mdi-github" />
                 <VBreadcrumbs id="version_info" :items="[version, '&copy; Christian Fuchte']" />

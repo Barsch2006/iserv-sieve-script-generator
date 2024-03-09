@@ -17,6 +17,8 @@
 
 .v-footer {
     height: 48px !important;
+    bottom: 0;
+    position: fixed;
 }
 
 .v-card {
