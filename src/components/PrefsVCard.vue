@@ -54,7 +54,15 @@ export default {
             />
         </VCardItem>
         <VCardActions>
-            <VBtn width="100%" variant="flat" color="primary" @click="nextPage()"> Next </VBtn>
+            <VBtn
+                :disabled="!prefs.my_domain.match(/\..+/)?.[0]"
+                width="100%"
+                variant="flat"
+                :color="prefs.my_domain.match(/\..+/)?.[0] ? 'primary' : ''"
+                @click="nextPage()"
+            >
+                Next
+            </VBtn>
         </VCardActions>
     </VCard>
 </template>
