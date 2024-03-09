@@ -58,7 +58,7 @@ export default {
                     </li>
                 </ol>
             </VCardText>
-            <VCheckbox v-model="nextEnabled" label="I have read and accept the terms of use" @change="acceptTos()" />
+            <VCheckbox v-model="nextEnabled" label="I have read and accept the terms of use" />
         </VCardText>
         <VCardActions>
             <VBtn
