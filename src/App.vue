@@ -1,18 +1,19 @@
 <script lang="ts">
 import StartVCard from './components/StartVCard.vue';
 import PrefsVCard from './components/PrefsVCard.vue';
-import GenerateVCard from './components/GenerateVCard.vue';
+import { default as generate, IGenerateOptions } from './generate';
 
 export default {
-    components: { StartVCard, PrefsVCard, GenerateVCard },
+    components: { StartVCard, PrefsVCard },
     data() {
         return {
             version: 'v1.0.0',
-            generate: {
+            generateOptions: {} as IGenerateOptions,
+            generated: {
                 success: false,
                 error: undefined as string | undefined,
                 loading: false,
-                disabled: true,
+                disabled: false,
                 code: '',
             },
             tab: 'start',
@@ -35,6 +36,38 @@ export default {
             ],
             mobile: false,
         };
+    },
+    methods: {
+        generate,
+        async copyGeneratedCode(): Promise<void> {
+            try {
+                // @ts-ignore
+                await window.navigator.clipboard.writeText(this.generated.code);
+            } catch {
+                // @ts-ignore
+                this.generated.error = 'Could not copy code to clipboard';
+            }
+        },
+        async generateCode(): Promise<void> {
+            // @ts-ignore
+            this.generated.loading = true;
+            // @ts-ignore
+            this.generated.success = false;
+            // @ts-ignore
+            this.generated.code = '';
+            // @ts-ignore
+            const res = await this.generate(this.generateOptions);
+            // @ts-ignore
+            this.generated.loading = false;
+            // @ts-ignore
+            this.generated.disabled = false;
+            // @ts-ignore
+            this.generated.success = res.success;
+            // @ts-ignore
+            this.generated.error = res.error;
+            // @ts-ignore
+            this.generated.code = res.code ?? '';
+        },
     },
     beforeMount() {
         this.mobile = window.innerWidth < 800;
@@ -70,7 +103,57 @@ export default {
                 </VWindowItem>
 
                 <VWindowItem value="finish">
-                    <GenerateVCard :generate="generate" />
+                    <VCard>
+                        <VCardTitle class="text-center">Generate code</VCardTitle>
+                        <VCardSubtitle>Finished with your settings? Let's generate your code!</VCardSubtitle>
+                        <VAlert
+                            v-if="generated.error"
+                            style="margin-left: 10px; margin-right: 10px"
+                            title="Error"
+                            type="error"
+                            density="compact"
+                            width="calc(100% - 20px)"
+                            variant="flat"
+                            :msg="generated.error"
+                        />
+                        <VCardActions>
+                            <VBtn
+                                :color="
+                                    generated.disabled
+                                        ? ''
+                                        : generated.success
+                                          ? 'success'
+                                          : generated.error
+                                            ? 'error'
+                                            : 'primary'
+                                "
+                                :loading="generated.loading"
+                                :disabled="generated.disabled"
+                                width="100%"
+                                variant="flat"
+                                @click="generateCode()"
+                            >
+                                {{ generated.success ? 'Regenerate' : 'Generate' }}
+                            </VBtn>
+                        </VCardActions>
+                        <VCardText v-if="generated.success">
+                            <VTextarea
+                                v-model="generated.code"
+                                label="Generated Code"
+                                readonly
+                                bg-color="background"
+                                no-resize
+                                persistent-hint
+                                hint="Click the icon to copy the code to your clipboard"
+                                style="font-family: monospace; font-size: 10px"
+                                :auto-grow="true"
+                            >
+                                <template v-slot:append-inner>
+                                    <VIcon @click="copyGeneratedCode" icon="mdi-share" />
+                                </template>
+                            </VTextarea>
+                        </VCardText>
+                    </VCard>
                 </VWindowItem>
             </VWindow>
         </VMain>
