@@ -1,10 +1,11 @@
 <script lang="ts">
 import StartVCard from './components/StartVCard.vue';
 import PrefsVCard from './components/PrefsVCard.vue';
+import FilterVCard from './components/FilterVCard.vue';
 import { default as generate, IGenerateOptions } from './generate';
 
 export default {
-    components: { StartVCard, PrefsVCard },
+    components: { StartVCard, PrefsVCard, FilterVCard },
     data() {
         return {
             accepted_tos: false,
@@ -17,6 +18,7 @@ export default {
                     base: 'grb',
                     my_domain: '' as IGenerateOptions['prefs']['my_domain'],
                 },
+                filter: {} as IGenerateOptions['filter'],
             } as IGenerateOptions,
             generated: {
                 success: false,
@@ -36,6 +38,11 @@ export default {
                     value: 'preferences',
                     icon: 'mdi-cogs',
                     name: 'Prefs',
+                },
+                {
+                    value: 'filters',
+                    icon: 'mdi-filter-variant-plus',
+                    name: 'Configure',
                 },
                 {
                     value: 'finish',
@@ -113,7 +120,11 @@ export default {
                 </VWindowItem>
 
                 <VWindowItem value="preferences">
-                    <PrefsVCard v-model="generateOptions.prefs" @next-page="tab = 'finish'" />
+                    <PrefsVCard v-model="generateOptions.prefs" @next-page="tab = 'filters'" />
+                </VWindowItem>
+
+                <VWindowItem value="filters">
+                    <FilterVCard v-model="generateOptions.filter" @next-page="tab = 'finish'" />
                 </VWindowItem>
 
                 <VWindowItem value="finish">
