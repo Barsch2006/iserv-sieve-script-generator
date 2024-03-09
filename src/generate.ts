@@ -21,7 +21,7 @@ export default async function generate(_opt: IGenerateOptions): Promise<{
             resolve({
                 success: true,
                 error: undefined,
-                code: 'Code Generation Is Not Implemented Yet!',
+                code: 'Code Generation Is Not Implemented Yet!' /* JSON.stringify(_opt) */,
             });
         }, 1000);
     });

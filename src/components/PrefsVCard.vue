@@ -2,7 +2,12 @@
 import { IPreferences } from '../generate';
 
 export default {
-    emits: ['next-page'],
+    emits: ['next-page', 'model-value'],
+    props: {
+        modelValue: {
+            type: Object as () => IPreferences,
+        },
+    },
     methods: {
         nextPage() {
             // @ts-ignore
@@ -16,7 +21,7 @@ export default {
         };
     } {
         return {
-            prefs: {
+            prefs: this.modelValue || {
                 base: 'grb',
                 my_domain: '' as IPreferences['my_domain'],
             },
@@ -27,6 +32,15 @@ export default {
                 },
             },
         };
+    },
+    watch: {
+        prefs: {
+            handler() {
+                // @ts-ignore
+                this.$emit('model-value', this.prefs);
+            },
+            deep: true,
+        },
     },
 };
 </script>
@@ -55,10 +69,10 @@ export default {
         </VCardItem>
         <VCardActions>
             <VBtn
-                :disabled="!prefs.my_domain.match(/\..+/)?.[0]"
+                :disabled="!/\..+/.test(prefs.my_domain)"
                 width="100%"
                 variant="flat"
-                :color="prefs.my_domain.match(/\..+/)?.[0] ? 'primary' : ''"
+                :color="/\..+/.test(prefs.my_domain) ? 'primary' : ''"
                 @click="nextPage()"
             >
                 Next

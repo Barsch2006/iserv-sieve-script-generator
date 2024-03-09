@@ -13,6 +13,10 @@ export default {
                 buildOptions: {
                     with_comments: true,
                 },
+                prefs: {
+                    base: 'grb',
+                    my_domain: '' as IGenerateOptions['prefs']['my_domain'],
+                },
             } as IGenerateOptions,
             generated: {
                 success: false,
@@ -109,7 +113,7 @@ export default {
                 </VWindowItem>
 
                 <VWindowItem value="preferences">
-                    <PrefsVCard @next-page="tab = 'finish'" />
+                    <PrefsVCard v-model="generateOptions.prefs" @next-page="tab = 'finish'" />
                 </VWindowItem>
 
                 <VWindowItem value="finish">
@@ -138,7 +142,7 @@ export default {
                         <VCardActions>
                             <VBtn
                                 :color="
-                                    generated.disabled
+                                    generated.disabled || !accepted_tos
                                         ? ''
                                         : generated.success
                                           ? 'success'
@@ -147,7 +151,7 @@ export default {
                                             : 'primary'
                                 "
                                 :loading="generated.loading"
-                                :disabled="generated.disabled"
+                                :disabled="generated.disabled || !accepted_tos"
                                 width="100%"
                                 variant="flat"
                                 @click="generateCode()"
