@@ -1,26 +1,19 @@
 <script lang="ts">
+import StartVCard from './components/StartVCard.vue';
+import PrefsVCard from './components/PrefsVCard.vue';
+import GenerateVCard from './components/GenerateVCard.vue';
+
 export default {
-    data(): {
-        version: string;
-        generate: {
-            success: boolean;
-            error: string | undefined;
-            loading: boolean;
-            disabled: boolean;
-            code: string;
-        };
-        tab: string;
-        tabs: { value: string; icon: string; name: string }[];
-        mobile: boolean;
-    } {
+    components: { StartVCard, PrefsVCard, GenerateVCard },
+    data() {
         return {
             version: 'v1.0.0',
             generate: {
-                success: true,
+                success: false,
                 error: undefined as string | undefined,
                 loading: false,
                 disabled: true,
-                code: 'require ["fileinto"]; \ntada',
+                code: '',
             },
             tab: 'start',
             tabs: [
@@ -30,6 +23,11 @@ export default {
                     name: 'Start',
                 },
                 {
+                    value: 'preferences',
+                    icon: 'mdi-cogs',
+                    name: 'Prefs',
+                },
+                {
                     value: 'finish',
                     icon: 'mdi-play-circle-outline',
                     name: 'Generate',
@@ -37,15 +35,6 @@ export default {
             ],
             mobile: false,
         };
-    },
-    methods: {
-        async copyGeneratedCode() {
-            try {
-                await window.navigator.clipboard.writeText(this.generate.code);
-            } catch {
-                this.generate.error = 'Could not copy code to clipboard';
-            }
-        },
     },
     beforeMount() {
         this.mobile = window.innerWidth < 800;
@@ -72,57 +61,16 @@ export default {
         </VTabs>
         <VMain>
             <VWindow v-model="tab">
+                <VWindowItem value="start">
+                    <StartVCard @next-page="tab = 'preferences'" />
+                </VWindowItem>
+
+                <VWindowItem value="preferences">
+                    <PrefsVCard @next-page="tab = 'finish'" />
+                </VWindowItem>
+
                 <VWindowItem value="finish">
-                    <VCard>
-                        <VCardTitle class="text-center">Finish?</VCardTitle>
-                        <VCardSubtitle>Finished with your settings? Let's generate your code!</VCardSubtitle>
-                        <VAlert
-                            v-if="generate.error"
-                            style="margin-left: 10px; margin-right: 10px"
-                            title="Error"
-                            type="error"
-                            density="compact"
-                            width="calc(100% - 20px)"
-                            variant="flat"
-                            :msg="generate.error"
-                        />
-                        <VCardActions>
-                            <VBtn
-                                :color="
-                                    generate.disabled
-                                        ? ''
-                                        : generate.success
-                                          ? 'success'
-                                          : generate.error
-                                            ? 'error'
-                                            : 'primary'
-                                "
-                                :loading="generate.loading"
-                                :disabled="generate.disabled"
-                                width="100%"
-                                variant="flat"
-                            >
-                                Generate
-                            </VBtn>
-                        </VCardActions>
-                        <VCardText v-if="generate.success">
-                            <VTextarea
-                                v-model="generate.code"
-                                label="Generated Code"
-                                readonly
-                                bg-color="background"
-                                no-resize
-                                persistent-hint
-                                hint="Click the icon to copy the code to your clipboard"
-                                style="font-family: monospace; font-size: 10px;"
-                                :auto-grow="true"
-                            >
-                                <template v-slot:append-inner>
-                                    <VIcon @click="copyGeneratedCode" icon="mdi-share" />
-                                </template>
-                            </VTextarea>
-                        </VCardText>
-                    </VCard>
+                    <GenerateVCard :generate="generate" />
                 </VWindowItem>
             </VWindow>
         </VMain>
