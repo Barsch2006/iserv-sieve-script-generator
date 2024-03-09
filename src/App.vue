@@ -186,6 +186,15 @@ export default {
                 <VIcon icon="mdi-github" />
                 <VBreadcrumbs id="version_info" :items="[version, '&copy; Christian Fuchte']" />
             </a>
+            <VSpacer />
+            <a class="subtitle icon-link" href="https://iserv.de/">
+                <VIcon size="24px" icon="mdi-link-variant" />
+                IServ
+            </a>
+            <a class="subtitle icon-link" href="https://datatracker.ietf.org/doc/html/rfc3028#section-1">
+                <VIcon size="24px" icon="mdi-book-open-blank-variant" />
+                Docs
+            </a>
         </VFooter>
     </VApp>
 </template>

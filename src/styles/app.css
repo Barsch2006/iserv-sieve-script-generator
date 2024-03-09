@@ -19,6 +19,9 @@
     height: 48px !important;
     bottom: 0;
     position: fixed;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 10px;
 }
 
 .v-card {
@@ -29,4 +32,12 @@
     #version_info {
         display: none;
     }
+}
+
+a.subtitle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 10px;
 }
