@@ -39,7 +39,8 @@ export default {
                 Simply add your preferences and settings to the forms on the following pages. If you're done, go to
                 <u @click="goToTab('finish')" style="cursor: pointer; color: rgb(var(--v-theme-primary))">Generate</u>
                 to get your code generated. Copy the code to your clipboard and paste into textarea in the
-                <i>Sieve Script</i>-Tab in the Mail settings of your IServ Account.
+                <i>Sieve Script</i>-Tab in the Mail settings of your
+                <a style="cursor: pointer; color: rgb(var(--v-theme-primary))" target="__blank" href="https://iserv.de/">IServ</a> Account.
             </p>
         </VCardText>
         <VCardText>
