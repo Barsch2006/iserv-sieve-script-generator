@@ -182,16 +182,16 @@ export default {
         </VMain>
 
         <VFooter height="48px" color="transparent">
-            <a class="icon-link row" href="https://github.com/Barsch2006/iserv-sieve-script-generator">
+            <a target="__blank" class="icon-link row" href="https://github.com/Barsch2006/iserv-sieve-script-generator">
                 <VIcon icon="mdi-github" />
                 <VBreadcrumbs id="version_info" :items="[version, '&copy; Christian Fuchte']" />
             </a>
             <VSpacer />
-            <a class="subtitle icon-link" href="https://iserv.de/">
+            <a target="__blank" class="subtitle icon-link" href="https://iserv.de/">
                 <VIcon size="24px" icon="mdi-link-variant" />
                 IServ
             </a>
-            <a class="subtitle icon-link" href="https://datatracker.ietf.org/doc/html/rfc3028#section-1">
+            <a target="__blank" class="subtitle icon-link" href="https://datatracker.ietf.org/doc/html/rfc3028#section-1">
                 <VIcon size="24px" icon="mdi-book-open-blank-variant" />
                 Docs
             </a>
