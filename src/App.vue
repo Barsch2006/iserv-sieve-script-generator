@@ -167,7 +167,7 @@ export default {
                                 variant="flat"
                                 @click="generateCode()"
                             >
-                                {{ generated.success ? 'Regenerate' : 'Generate' }}
+                                {{ generated.success ? 'Re-Generate' : 'Generate' }}
                             </VBtn>
                         </VCardActions>
                         <VCardText v-if="generated.success">

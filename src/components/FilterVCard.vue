@@ -44,7 +44,7 @@ export default {
         <VCardTitle class="text-center"> Sieve Actions </VCardTitle>
         <VCardSubtitle>Set up mail filters, sorting and more </VCardSubtitle>
         <VCardActions>
-            <VBtn color="primary" width="100%" variant="flat" @click="nextPage()"> Next </VBtn>
+            <VBtn color="primary" width="100%" variant="flat" @click="nextPage()"> Finish </VBtn>
         </VCardActions>
     </VCard>
 </template>
