@@ -1,8 +1,13 @@
 export interface IPreferences {
+    base: 'grb';
+    my_domain: `${string}.${string}`;
 }
 
 export interface IGenerateOptions {
     prefs: IPreferences;
+    buildOptions: {
+        with_comments: boolean;
+    };
 }
 
 export default async function generate(_opt: IGenerateOptions): Promise<{
@@ -16,7 +21,7 @@ export default async function generate(_opt: IGenerateOptions): Promise<{
             resolve({
                 success: true,
                 error: undefined,
-                code: '<span style="color: red;">Test</span>',
+                code: 'Code Generation Is Not Implemented Yet!',
             });
         }, 1000);
     });

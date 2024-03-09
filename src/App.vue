@@ -7,8 +7,13 @@ export default {
     components: { StartVCard, PrefsVCard },
     data() {
         return {
+            accepted_tos: false,
             version: 'v1.0.0',
-            generateOptions: {} as IGenerateOptions,
+            generateOptions: {
+                buildOptions: {
+                    with_comments: true,
+                },
+            } as IGenerateOptions,
             generated: {
                 success: false,
                 error: undefined as string | undefined,
@@ -87,6 +92,7 @@ export default {
                 v-for="tab in tabs"
                 :key="tab.value"
                 :value="tab.value"
+                :disabled="!accepted_tos"
             >
                 <VIcon v-if="mobile" size="24px" :icon="tab.icon" />
                 <span v-else>{{ tab.name }}</span>
@@ -95,7 +101,11 @@ export default {
         <VMain>
             <VWindow v-model="tab">
                 <VWindowItem value="start">
-                    <StartVCard @go-to-tab="(t) => (tab = t)" @next-page="tab = 'preferences'" />
+                    <StartVCard
+                        @accepted_tos="(e) => (accepted_tos = e)"
+                        @go-to-tab="(t) => (tab = t)"
+                        @next-page="tab = 'preferences'"
+                    />
                 </VWindowItem>
 
                 <VWindowItem value="preferences">
@@ -106,6 +116,15 @@ export default {
                     <VCard>
                         <VCardTitle class="text-center">Generate code</VCardTitle>
                         <VCardSubtitle>Finished with your settings? Let's generate your code!</VCardSubtitle>
+                        <VCardItem>
+                            <CardTitle>Build Options</CardTitle>
+                            <VCheckbox
+                                v-model="generateOptions.buildOptions.with_comments"
+                                label="comments"
+                                hint="Add comments to the generated code to make debugging and understanding easier"
+                                persistent-hint
+                            />
+                        </VCardItem>
                         <VAlert
                             v-if="generated.error"
                             style="margin-left: 10px; margin-right: 10px"

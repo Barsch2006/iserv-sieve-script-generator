@@ -1,12 +1,25 @@
 <script lang="ts">
 export default {
-    emits: ['next-page', 'go-to-tab'],
+    emits: ['next-page', 'go-to-tab', 'accepted_tos'],
+    data() {
+        return {
+            nextEnabled: false,
+        };
+    },
     methods: {
         nextPage() {
-            this.$emit('next-page');
+            // @ts-ignore
+            if (this.nextEnabled) this.$emit('next-page');
         },
         goToTab(tab: string) {
-            this.$emit('go-to-tab', tab);
+            // @ts-ignore
+            if (this.nextEnabled) this.$emit('go-to-tab', tab);
+        },
+    },
+    watch: {
+        nextEnabled() {
+            // @ts-ignore
+            this.$emit('accepted_tos', this.nextEnabled);
         },
     },
 };
@@ -24,13 +37,39 @@ export default {
             <br />
             <p>
                 Simply add your preferences and settings to the forms on the following pages. If you're done, go to
-                <u @click="goToTab('finish')" style="cursor: pointer; color: rgb(var(--v-theme-primary));">Generate</u> to get your code generated. Copy the
-                code to your clipboard and paste into textarea in the <i>Sieve Script</i>-Tab in the Mail settings of
-                your IServ Account.
+                <u @click="goToTab('finish')" style="cursor: pointer; color: rgb(var(--v-theme-primary))">Generate</u>
+                to get your code generated. Copy the code to your clipboard and paste into textarea in the
+                <i>Sieve Script</i>-Tab in the Mail settings of your IServ Account.
             </p>
         </VCardText>
+        <VCardText>
+            <VCardTitle class="text-center">Terms Of Use</VCardTitle>
+            <VCardText>
+                By using this tool, you agree to the following terms:
+                <ol style="padding-left: 20px">
+                    <li>
+                        I will not use this tool for any illegal or harmful purposes. <br />
+                        I will not use this tool to harm or damage any person or entity.
+                    </li>
+                    <li>I am aware that the generated code is based on my preferences and settings. <br /></li>
+                    <li>
+                        I am aware that the generated code is not guaranteed to work as expected and it may cause errors
+                        on my system (for example if the server is not configured as aspected).
+                    </li>
+                </ol>
+            </VCardText>
+            <VCheckbox v-model="nextEnabled" label="I have read and accept the terms of use" @change="acceptTos()" />
+        </VCardText>
         <VCardActions>
-            <VBtn width="100%" variant="flat" color="primary" @click="nextPage()"> Start </VBtn>
+            <VBtn
+                :disabled="!nextEnabled"
+                :color="!nextEnabled ? 'surface' : 'primary'"
+                width="100%"
+                variant="flat"
+                @click="nextPage()"
+            >
+                Start
+            </VBtn>
         </VCardActions>
     </VCard>
 </template>
