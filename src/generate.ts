@@ -11,7 +11,7 @@ export default async function generate(_opt: IGenerateOptions): Promise<{
             resolve({
                 success: true,
                 error: undefined,
-                code: 'console.log("Hello, World!")',
+                code: '<span style="color: red;">Test</span>',
             });
         }, 1000);
     });

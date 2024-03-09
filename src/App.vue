@@ -95,7 +95,7 @@ export default {
         <VMain>
             <VWindow v-model="tab">
                 <VWindowItem value="start">
-                    <StartVCard @next-page="tab = 'preferences'" />
+                    <StartVCard @go-to-tab="(t) => (tab = t)" @next-page="tab = 'preferences'" />
                 </VWindowItem>
 
                 <VWindowItem value="preferences">
@@ -149,7 +149,7 @@ export default {
                                 :auto-grow="true"
                             >
                                 <template v-slot:append-inner>
-                                    <VIcon @click="copyGeneratedCode" icon="mdi-share" />
+                                    <VIcon @click="copyGeneratedCode" icon="mdi-content-copy" />
                                 </template>
                             </VTextarea>
                         </VCardText>
