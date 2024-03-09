@@ -68,7 +68,7 @@ export default {
                 variant="flat"
                 @click="nextPage()"
             >
-                Start
+                NEXT
             </VBtn>
         </VCardActions>
     </VCard>
