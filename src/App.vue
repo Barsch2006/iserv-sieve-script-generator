@@ -3,11 +3,10 @@ import StartVCard from './components/StartVCard.vue';
 import PrefsVCard from './components/PrefsVCard.vue';
 import FilterVCard from './components/FilterVCard.vue';
 import HelpPage from './components/HelpPage.vue';
-import SieveEditor from './components/SieveEditor.vue';
 import { default as generate, IGenerateOptions } from './generate';
 
 export default {
-    components: { StartVCard, PrefsVCard, FilterVCard, HelpPage, SieveEditor },
+    components: { StartVCard, PrefsVCard, FilterVCard, HelpPage },
     data() {
         return {
             accepted_tos: false,
@@ -50,11 +49,6 @@ export default {
                     value: 'finish',
                     icon: 'mdi-play-circle-outline',
                     name: 'Generate',
-                },
-                {
-                    value: 'editor',
-                    icon: 'mdi-file-code',
-                    name: 'Editor',
                 },
                 {
                     value: 'help',
@@ -222,10 +216,6 @@ export default {
                             </VBtn>
                         </VCardText>
                     </VCard>
-                </VWindowItem>
-
-                <VWindowItem value="editor">
-                    <SieveEditor @go-to-start="tab = 'start'" :generated_code="generated.code" />
                 </VWindowItem>
 
                 <VWindowItem value="help">
