@@ -1,4 +1,6 @@
 <script lang="ts">
+import syntax from '../syntax';
+
 export default {
     emits: ['go-to-start'],
     props: {
@@ -25,16 +27,7 @@ export default {
         },
         syntaxHighlight() {
             // @ts-ignore
-            this.highlighted_code = this.code
-                // escape html
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/\n/g, '<br>')
-                .replace(/ /g, '&nbsp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/`/g, '&#96;');
+            this.highlighted_code = syntax(this.code);
         },
         onInput() {
             // @ts-ignore
@@ -56,19 +49,17 @@ export default {
     <VCard>
         <VCardTitle class="text-center"> Sieve-Editor </VCardTitle>
         <VCardSubtitle>Create and customize your Sieve-Script with syntax-highlighting</VCardSubtitle>
-        <VCardActions>
+        <VCardItem>
             <VBtn
                 @click="useGeneratedCode"
                 color="primary"
                 flat
                 variant="flat"
                 width="100%"
-                prepend-icon="mdi-import"
+                :prepend-icon="generated_code?.length < 1 ? 'mdi-pencil' : 'mdi-import'"
             >
                 {{ generated_code?.length < 1 ? 'Generate Your Code' : 'Import Generated Code' }}
             </VBtn>
-        </VCardActions>
-        <VCardItem>
             <div class="editor_wrapper">
                 <textarea spellcheck="false" @keydown="onInput" v-model="code"></textarea>
                 <div spellcheck="false" class="syntax" v-html="highlighted_code"></div>
@@ -78,7 +69,10 @@ export default {
 </template>
 
 <style>
+@import url(../styles/syntax.css);
+
 .editor_wrapper {
+    margin-top: 10px;
     width: 100%;
     position: relative;
     height: min(calc(100svh - 250px));

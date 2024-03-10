@@ -97,6 +97,32 @@ export default {
             this.generated.code = res.code ?? '';
         },
     },
+    watch: {
+        generateOptions: {
+            handler() {
+                if (
+                    // @ts-ignore
+                    this.generateOptions.prefs.my_domain.length < 3 ||
+                    // @ts-ignore
+                    !/\..+/.test(this.generateOptions.prefs.my_domain) ||
+                    // @ts-ignore
+                    this.generateOptions.prefs.base.length < 1 ||
+                    // @ts-ignore
+                    !this.accepted_tos ||
+                    // @ts-ignore
+                    Object.keys(this.generateOptions.filter).length < 1
+                ) {
+                    // @ts-ignore
+                    this.generated.disabled = true;
+                } else {
+                    // @ts-ignore
+                    this.generated.disabled = false;
+                }
+            },
+            immediate: true,
+            deep: true,
+        },
+    },
     beforeMount() {
         this.mobile = window.innerWidth < 800;
         window.onresize = () => {
