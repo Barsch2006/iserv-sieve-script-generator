@@ -3,7 +3,6 @@ export default {
     emits: ['go-to-start'],
     methods: {
         gotostart() {
-            // @ts-ignore
             this.$emit('go-to-start');
         },
     },

@@ -17,16 +17,12 @@ export default {
     },
     methods: {
         useGeneratedCode() {
-            // @ts-ignore
             if (this.generated_code?.length < 1) {
-                // @ts-ignore
                 this.$emit('go-to-start');
             }
-            // @ts-ignore
             this.code = this.generated_code;
         },
         syntaxHighlight() {
-            // @ts-ignore
             this.highlighted_code = syntax(this.code);
         },
         onInput() {
@@ -42,7 +38,6 @@ export default {
     },
     watch: {
         code() {
-            // @ts-ignore
             this.syntaxHighlight();
         },
     },

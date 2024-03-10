@@ -10,7 +10,6 @@ export default {
     },
     methods: {
         nextPage() {
-            // @ts-ignore
             this.$emit('next-page');
         },
     },
@@ -30,7 +29,6 @@ export default {
     watch: {
         prefs: {
             handler() {
-                // @ts-ignore
                 this.$emit('model-value', this.filter);
             },
             deep: true,

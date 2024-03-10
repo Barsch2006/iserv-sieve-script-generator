@@ -3,8 +3,7 @@ export interface IPreferences {
     my_domain: `${string}.${string}`;
 }
 
-export interface IFilter {
-}
+export interface IFilter {}
 
 export interface IGenerateOptions {
     prefs: IPreferences;

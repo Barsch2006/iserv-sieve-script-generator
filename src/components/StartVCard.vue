@@ -8,17 +8,14 @@ export default {
     },
     methods: {
         nextPage() {
-            // @ts-ignore
             if (this.nextEnabled) this.$emit('next-page');
         },
         goToTab(tab: string) {
-            // @ts-ignore
             if (this.nextEnabled) this.$emit('go-to-tab', tab);
         },
     },
     watch: {
         nextEnabled() {
-            // @ts-ignore
             this.$emit('accepted_tos', this.nextEnabled);
         },
     },
@@ -40,7 +37,10 @@ export default {
                 <u @click="goToTab('finish')" style="cursor: pointer; color: rgb(var(--v-theme-primary))">Generate</u>
                 to get your code generated. Copy the code to your clipboard and paste into textarea in the
                 <i>Sieve Script</i>-Tab in the Mail settings of your
-                <a style="cursor: pointer; color: rgb(var(--v-theme-primary))" target="__blank" href="https://iserv.de/">IServ</a> Account.
+                <a style="cursor: pointer; color: rgb(var(--v-theme-primary))" target="__blank" href="https://iserv.de/"
+                    >IServ</a
+                >
+                Account.
             </p>
         </VCardText>
         <VCardText>

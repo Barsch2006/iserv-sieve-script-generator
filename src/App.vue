@@ -69,31 +69,20 @@ export default {
         generate,
         async copyGeneratedCode(): Promise<void> {
             try {
-                // @ts-ignore
                 await window.navigator.clipboard.writeText(this.generated.code);
             } catch {
-                // @ts-ignore
                 this.generated.error = 'Could not copy code to clipboard';
             }
         },
         async generateCode(): Promise<void> {
-            // @ts-ignore
             this.generated.loading = true;
-            // @ts-ignore
             this.generated.success = false;
-            // @ts-ignore
             this.generated.code = '';
-            // @ts-ignore
             const res = await this.generate(this.generateOptions);
-            // @ts-ignore
             this.generated.loading = false;
-            // @ts-ignore
             this.generated.disabled = false;
-            // @ts-ignore
             this.generated.success = res.success;
-            // @ts-ignore
             this.generated.error = res.error;
-            // @ts-ignore
             this.generated.code = res.code ?? '';
         },
     },
@@ -101,21 +90,14 @@ export default {
         generateOptions: {
             handler() {
                 if (
-                    // @ts-ignore
                     this.generateOptions.prefs.my_domain.length < 3 ||
-                    // @ts-ignore
                     !/\..+/.test(this.generateOptions.prefs.my_domain) ||
-                    // @ts-ignore
                     this.generateOptions.prefs.base.length < 1 ||
-                    // @ts-ignore
                     !this.accepted_tos ||
-                    // @ts-ignore
                     Object.keys(this.generateOptions.filter).length < 1
                 ) {
-                    // @ts-ignore
                     this.generated.disabled = true;
                 } else {
-                    // @ts-ignore
                     this.generated.disabled = false;
                 }
             },
