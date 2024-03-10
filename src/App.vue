@@ -3,10 +3,11 @@ import StartVCard from './components/StartVCard.vue';
 import PrefsVCard from './components/PrefsVCard.vue';
 import FilterVCard from './components/FilterVCard.vue';
 import HelpPage from './components/HelpPage.vue';
+import SieveEditor from './components/SieveEditor.vue';
 import { default as generate, IGenerateOptions } from './generate';
 
 export default {
-    components: { StartVCard, PrefsVCard, FilterVCard, HelpPage },
+    components: { StartVCard, PrefsVCard, FilterVCard, HelpPage, SieveEditor },
     data() {
         return {
             accepted_tos: false,
@@ -49,6 +50,11 @@ export default {
                     value: 'finish',
                     icon: 'mdi-play-circle-outline',
                     name: 'Generate',
+                },
+                {
+                    value: 'editor',
+                    icon: 'mdi-file-code',
+                    name: 'Editor',
                 },
                 {
                     value: 'help',
@@ -96,6 +102,9 @@ export default {
         window.onresize = () => {
             this.mobile = window.innerWidth < 800;
         };
+        if (window.location.hash === '#editor') {
+            this.tab = 'editor';
+        }
     },
 };
 </script>
@@ -109,7 +118,7 @@ export default {
                 v-for="tab in tabs"
                 :key="tab.value"
                 :value="tab.value"
-                :disabled="!accepted_tos"
+                :disabled="!accepted_tos && tab.value != 'help' && tab.value != 'editor' && tab.value != 'start'"
             >
                 <VIcon v-if="mobile" size="24px" :icon="tab.icon" />
                 <span v-else>{{ tab.name }}</span>
@@ -172,6 +181,7 @@ export default {
                                 width="100%"
                                 variant="flat"
                                 @click="generateCode()"
+                                prepend-icon="mdi-sync"
                             >
                                 {{ generated.success ? 'Re-Generate' : 'Generate' }}
                             </VBtn>
@@ -192,8 +202,22 @@ export default {
                                     <VIcon @click="copyGeneratedCode" icon="mdi-content-copy" />
                                 </template>
                             </VTextarea>
+                            <VBtn
+                                style="margin-top: 10px"
+                                @click="tab = 'editor'"
+                                color="primary"
+                                width="100%"
+                                flat
+                                prepend-icon="mdi-open-in-new"
+                            >
+                                Open In Editor
+                            </VBtn>
                         </VCardText>
                     </VCard>
+                </VWindowItem>
+
+                <VWindowItem value="editor">
+                    <SieveEditor @go-to-start="tab = 'start'" :generated_code="generated.code" />
                 </VWindowItem>
 
                 <VWindowItem value="help">
