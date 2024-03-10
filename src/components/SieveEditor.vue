@@ -30,8 +30,6 @@ export default {
             this.highlighted_code = syntax(this.code);
         },
         onInput() {
-            // @ts-ignore
-            this.syntaxHighlight();
             const textarea = document.querySelector('.editor_wrapper textarea') as HTMLTextAreaElement;
             const scrollArea = document.querySelector('.editor_wrapper') as HTMLDivElement;
             if (textarea && textarea.clientHeight) {
@@ -40,6 +38,12 @@ export default {
             if (scrollArea) {
                 scrollArea.scrollTop = scrollArea.scrollHeight;
             }
+        },
+    },
+    watch: {
+        code() {
+            // @ts-ignore
+            this.syntaxHighlight();
         },
     },
 };

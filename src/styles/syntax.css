@@ -1,3 +1,15 @@
-.syntax {
+.syntax .number {
+    color: #b5cea8;
+}
 
+.syntax .string {
+    color: #ce9178;
+}
+
+.syntax .bracket {
+    color: #a966d6;
+}
+
+.syntax .block {
+    color: #caca00;
 }
